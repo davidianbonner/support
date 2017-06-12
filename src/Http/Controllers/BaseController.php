@@ -2,13 +2,7 @@
 
 namespace Continuum\Support\Http\Controllers;
 
-use Exception;
-use Illuminate\View\View;
 use Illuminate\Http\Request;
-use Illuminate\Http\Response;
-use Illuminate\Support\Collection;
-use Continuum\Support\Eloquent\Paginate;
-use Continuum\Support\Transformer\AbstractTransformer;
 use Illuminate\Foundation\Validation\ValidatesRequests;
 use Illuminate\Foundation\Auth\Access\AuthorizesRequests;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
@@ -48,7 +42,7 @@ class BaseController
      *
      * @return Illuminate\Http\Response
      */
-    protected function respondWithJson($data, $status = 200, $headers = []): Response
+    protected function respondWithJson($data, $status = 200, $headers = [])
     {
         return response()->json($data, $status, $headers);
     }
@@ -58,7 +52,7 @@ class BaseController
      *
      * @return Illuminate\View\View
      */
-    protected function respondWithView($view, array $attrs = []): View
+    protected function respondWithView($view, array $attrs = [])
     {
         return view()->make($view, $attrs);
     }

@@ -3,7 +3,7 @@
     "description": "Laravel query filtering.",
     "type": "library",
     "require": {
-        "php" : "^7.0",
+        "php" : "^7.1",
         "illuminate/contracts": "^5.4",
         "illuminate/support": "^5.4",
         "illuminate/database": "^5.4"
