@@ -5,6 +5,7 @@ namespace Continuum\Support\Transformer;
 use Exception;
 use Illuminate\Support\Collection;
 use Illuminate\Pagination\AbstractPaginator;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 
 abstract class AbstractTransformer
 {
@@ -58,10 +59,22 @@ abstract class AbstractTransformer
      */
     public function paginate(AbstractPaginator $paginator): array
     {
-        return [
+        $payload = [
             $this->pluraliseName() => $paginator->getCollection()->map([$this, 'transform']),
-            $this->pluraliseName('count') => $paginator->total()
+            $this->pluraliseName('count') => $paginator->count(),
+            'per_page' => $paginator->perPage(),
+            'current_page' => $paginator->currentPage(),
+            'current_page' => $paginator->currentPage(),
+            'from' => $paginator->firstItem(),
+            'to' => $paginator->lastItem(),
         ];
+
+        if ($paginator instanceof LengthAwarePaginator) {
+            $payload['total'] = $paginator->total();
+            $payload['last_page'] = $paginator->lastPage();
+        }
+
+        return $payload;
     }
 
     /**
